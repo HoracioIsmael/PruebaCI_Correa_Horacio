@@ -1,0 +1,27 @@
+# .github/workflows/python-ci.yml
+name: Python CI
+
+# El workflow se dispara cuando se hace un 'push'
+on: [push]
+
+jobs:
+  build:
+    # Ejecutar el job en la última versión de Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      # Paso 1: Obtener el código fuente del repositorio (Checkout) [cite: 325]
+      - uses: actions/checkout@v3
+
+      # Paso 2: Configurar el entorno de Python 3.x [cite: 326, 327, 329]
+      - name: Instalar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      # Paso 3: Instalar dependencias necesarias (pytest) [cite: 330, 331]
+      - name: Instalar dependencias
+        run: pip install pytest
+
+      # Paso 4: Ejecutar las pruebas unitarias (Test) [cite: 332, 333]
+      - name: Ejecutar pruebas
+        run: pytest
